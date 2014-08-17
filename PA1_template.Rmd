@@ -2,19 +2,38 @@
 
 
 ## Loading and preprocessing the data
-
-
+```{r Load Data}
+setwd("~/github/RepData_PeerAssessment1")
+unzip(zipfile="activity.zip")
+# All data and without NA's when required
+activity<-read.csv("./activity.csv")
+activityNna<-activity[!is.na(activity$steps),]
+# 
+#names(activity)
+#head(activity,1)
+```
 
 ## What is mean total number of steps taken per day?
-
+```{r Histogram, Mean Median}
+hist(activityNna$steps,main="steps per day",xlab="steps",col="blue")
+mean(activity$steps,na.rm=T)
+median(activity$steps,na.rm=T)
+```
 
 
 ## What is the average daily activity pattern?
-
+```{r Plot activity time series}
+plot.ts(activity$interval,y=activity$steps)
+max(activity$steps,na.rm=T)
+```
 
 
 ## Imputing missing values
+How bad is the missing problem
+```{r missing values}
+missing<-is.na(activity$steps)
+table(missing)
 
-
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
